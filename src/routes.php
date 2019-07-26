@@ -36,7 +36,7 @@ use Slim\Http\Response;
     $app->delete('/employees/[{id}]', function ($request, $response, $args) {
        $user= new UserController();
         $data=$user->update($args['id'], $this->db);
-        return $this->response->withJson($data,400);
+        return $this->response->withJson($data,204);
     });
 
 

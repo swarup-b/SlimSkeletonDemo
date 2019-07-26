@@ -3,24 +3,33 @@ include($_SERVER['DOCUMENT_ROOT'].'/EmployeeRegistration/src/model/CURDOperation
 
 class UserController{
 
-	public function create($empDetails,$db){
+	public function create($adminDetails,$db){
+		if (empty($adminDetails->name) || empty($adminDetails->email) || empty($adminDetails->password)) {
+            return $result=['error' => true, 'message' => 'Name ,Email or Password is empty.'];
+        }else{
 		 $createObj=new CURDUser();
-		 return $createObj->createEmployee($empDetails,$db);
+		 return $createObj->createEmployee($adminDetails,$db);
+		}
 	}
 
 	public function allEmployee($db){
-		 $createObj=new CURDUser();
-		 return $createObj->getAllEmployee($db);
+		 $allEmp=new CURDUser();
+		 return $allEmp->getAllEmployee($db);
 	}
 
-	public function update($empDetails,$id,$db){
-		 $createObj=new CURDUser();
-		 return $createObj->updatemployee($empDetails,$id,$db);
-		 return $id;
+	public function update($adminDetails,$id,$db){
+		if (empty($adminDetails->name) || empty($adminDetails->email) || empty($adminDetails->password)) {
+            return $result=['error' => true, 'message' => 'Name ,Email or Password is empty.'];
+        }else if (empty($id)) {
+        	return $result=['error' => true, 'message' => 'ID is required.'];
+        }else{
+		 $updateEmp=new CURDUser();
+		 return $updateEmp->updatemployee($adminDetails,$id,$db);
+		}
 
 	}
 	public function delete($id,$db){
-		 $createObj=new CURDUser();
-		 return $createObj->deleteEmployee($id,$db);
+		 $deleteEmp=new CURDUser();
+		 return $deleteEmp->deleteEmployee($id,$db);
 	}
 }?>
