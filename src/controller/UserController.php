@@ -4,8 +4,8 @@ include($_SERVER['DOCUMENT_ROOT'].'/EmployeeRegistration/src/model/CURDOperation
 class UserController{
 
 	public function create($adminDetails,$db){
-		if (empty($adminDetails->name) || empty($adminDetails->email) || empty($adminDetails->password)) {
-            return $result=['error' => true, 'message' => 'Name ,Email or Password is empty.'];
+		if (empty($adminDetails->name) || empty($adminDetails->address) || empty($adminDetails->salary)) {
+            return $result=['error' => true, 'message' => 'Name ,address or salary is empty.'];
         }else{
 		 $createObj=new CURDUser();
 		 return $createObj->createEmployee($adminDetails,$db);
@@ -18,8 +18,8 @@ class UserController{
 	}
 
 	public function update($adminDetails,$id,$db){
-		if (empty($adminDetails->name) || empty($adminDetails->email) || empty($adminDetails->password)) {
-            return $result=['error' => true, 'message' => 'Name ,Email or Password is empty.'];
+		if (empty($adminDetails->name) || empty($adminDetails->address) || empty($adminDetails->salary)) {
+            return $result=['error' => true, 'message' => 'Name ,address or salary is empty.'];
         }else if (empty($id)) {
         	return $result=['error' => true, 'message' => 'ID is required.'];
         }else{

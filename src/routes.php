@@ -1,11 +1,12 @@
 <?php
 require "controller/UserController.php";
+require "controller/LoginController.php";
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
    
-// get all admin
+// get all Employee
     $app->get('/employees', function ($request, $response, $args) {
          $user= new UserController();
         $data=$user->allEmployee($this->db);
@@ -42,20 +43,21 @@ use Slim\Http\Response;
 
 
 
-    /*  //Login admin
-    $app->post('/employees/login', function ($request, $response) {
+      //Login admin
+    $app->post('/Admins/login', function ($request, $response) {
         $adminDetails = json_decode($request->getBody());
-         $sth = $this->db->prepare("SELECT * FROM admin WHERE email = :email and password=:password");
-         $sth->bindParam("email",$adminDetails->email);
-         $sth->bindParam("password",$adminDetails->password);
-         $sth->execute();
-         if($sth->fetchColumn()==0){
-           $data=["result"=>"Invalid email and password"];
-            return $this->response->withJson($data);
+         $user= new LoginController();
+         $data=$user->login($adminDetails, $this->db);
+         return $this->response->withJson($data,200);
+        
+    });
 
-         }else{
-            $data=["result"=>"success"];
-             return $this->response->withJson($data,200);
-         }
-    });*/
+      //create admin
+    $app->post('/Admins/create', function ($request, $response) {
+        $adminDetails = json_decode($request->getBody());
+         $user= new LoginController();
+         $data=$user->create($adminDetails, $this->db);
+         return $this->response->withJson($data,200);
+        
+    });
 
